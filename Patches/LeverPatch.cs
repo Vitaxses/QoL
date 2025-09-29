@@ -41,3 +41,19 @@ class Lever_tk2dPatch {
         return false;
     }*/
 }
+
+[HarmonyPatch(typeof(PressurePlateBase))]
+class PressurePlatePatch
+{
+    [HarmonyPatch(typeof(PressurePlateBase), nameof(PressurePlateBase.GateOpenDelay), MethodType.Getter)]
+    [HarmonyPrefix]
+    static bool GateDelayPrefix(PressurePlateBase __instance, ref float __result)
+    {
+        if (QoLPlugin.FasterLevers.Value)
+        {
+            __instance.gateOpenDelay = __instance.waitTime = __result = 0f;
+            return false;
+        }
+        return true;
+    }
+}

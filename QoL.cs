@@ -20,16 +20,21 @@ public partial class QoLPlugin : BaseUnityPlugin
     public static ConfigEntry<bool> FastPickup { get; private set; }
     public static ConfigEntry<bool> SeePercentage { get; private set; }
     public static ConfigEntry<bool> NoCutscenes { get; private set; }
+    public static ConfigEntry<bool> SkipPlatforms { get; private set; }
+    public static ConfigEntry<bool> FastNPC { get; private set; }
+    public static ConfigEntry<bool> OldPatch { get; private set; }
 
     private void Awake()
     {
         harmony.PatchAll(typeof(UIManagerPatch));
+        harmony.PatchAll(typeof(InventoryPatch));
         harmony.PatchAll(typeof(PlayerDataPatch));
         harmony.PatchAll(typeof(SkippableSequencePatch));
         harmony.PatchAll(typeof(InputHandlerPatch));
         harmony.PatchAll(typeof(DialogueBoxPatch));
         harmony.PatchAll(typeof(LeverPatch));
         harmony.PatchAll(typeof(Lever_tk2dPatch));
+        harmony.PatchAll(typeof(PressurePlatePatch));
         SceneChangePatch.Setup();
         Logger = base.Logger;
         SkipWeakness = Config.Bind("Settings", "SkipWeakness", true);
@@ -39,6 +44,9 @@ public partial class QoLPlugin : BaseUnityPlugin
         FastPickup = Config.Bind("Settings", "FastPickup", true);
         NoCutscenes = Config.Bind("Settings", "NoCutscenes", true);
         SeePercentage = Config.Bind("Settings", "SeePercentage", false);
+        SkipPlatforms = Config.Bind("Settings", "SkipPlatforms", true);
+        FastNPC = Config.Bind("Settings", "FastNPC", true);
+        OldPatch = Config.Bind("Settings", "OldPatch", true);
         Logger.LogInfo($"{ID} loaded!");
     }
 }

@@ -5,17 +5,17 @@ namespace QoL.Patches;
 [HarmonyPatch(typeof(PlayerData))]
 class PlayerDataPatch
 {
-    [HarmonyPatch(typeof(PlayerData), nameof(PlayerData.SetupExistingPlayerData))]
-    [HarmonyPostfix]
-    static void ExistingDataPostfix(PlayerData __instance)
-    {
-        if (QoLPlugin.SeePercentage.Value) __instance.ConstructedFarsight = true;
-    }
+    public static string boolName = "Vitax's QOL CanSeePercentage";
 
-    [HarmonyPatch(typeof(PlayerData), nameof(PlayerData.SetupNewPlayerData))]
-    [HarmonyPostfix]
-    static void NewDataPostfix(PlayerData __instance)
+    [HarmonyPatch(typeof(PlayerData), nameof(PlayerData.GetBool))]
+    [HarmonyPrefix]
+    static bool StartPrefix(PlayerData __instance, ref string boolName, ref bool __result)
     {
-        if (QoLPlugin.SeePercentage.Value) __instance.ConstructedFarsight = true;
+        if (boolName == PlayerDataPatch.boolName && (__instance.ConstructedFarsight || QoLPlugin.SeePercentage.Value))
+        {
+            __result = true;
+            return false;
+        }
+        return true;
     }
 }
