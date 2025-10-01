@@ -156,8 +156,8 @@ public class SceneChangePatch
             break;
 
             case "bone_05_boss":
-                GameObject bossScene = GameObject.Find("Boss Scene");
-                Fsm fsm2 = bossScene.GetFsm("Battle End");
+                GameObject bossScene1 = GameObject.Find("Boss Scene");
+                Fsm fsm2 = bossScene1.GetFsm("Battle End");
                 FsmState endPauseState = fsm2.GetState("End Pause");
                 FsmTransition transition2 = fsm2.GetState("Idle").GetTransition(0);
                 transition2.toState = "End Pause";
@@ -169,6 +169,7 @@ public class SceneChangePatch
                         PlayerData.instance.SetBool(nameof(PlayerData.HasSeenSilkHearts), true);
                         HeroController.instance.AddToMaxSilkRegen(1);
                         PlayerData.instance.SetBool(nameof(PlayerData.UnlockedFastTravel), true);
+                        GameManager.instance.CheckAllAchievements();
                     })
                 ).ToArray();
                 /* This breaks the game (as in it loads it correctly but when leaving the scene and then leaving the next scene the game breaks)
@@ -195,9 +196,9 @@ public class SceneChangePatch
             break;
 
             case "song_tower_01":
-                Transform bossScene1 = GameObject.Find("Boss Scene").transform;
-                GameObject.Destroy(bossScene1.GetChild(8).gameObject);
-                Fsm fsm5 = bossScene1.GetChild(6).gameObject.GetFsm("Control");
+                Transform bossScene2 = GameObject.Find("Boss Scene").transform;
+                GameObject.Destroy(bossScene2.GetChild(8).gameObject);
+                Fsm fsm5 = bossScene2.GetChild(6).gameObject.GetFsm("Control");
                 FsmState deathState = fsm5.GetState("Death");
                 deathState.Actions = deathState.Actions.AddItem
                 (
@@ -207,6 +208,10 @@ public class SceneChangePatch
                         {
                             PlayerData.instance.SetBool(nameof(PlayerData.HasSeenSilkHearts), true);
                             HeroController.instance.AddToMaxSilkRegen(1);
+                            PlayerData.instance.defeatedLaceTower = true;
+                            GameObject.Find("State Control/song_tower_right_gate").GetFsm().SetState("Init");
+                            GameManager.instance.CheckAllAchievements();
+                            bossScene2.transform.GetChild(8).gameObject.GetFsm().SetState("Silk Quest?");
                         }
                     )
                 ).ToArray();
@@ -232,11 +237,19 @@ public class SceneChangePatch
         {
             skip = true;
         }
-        if (skip) {
+        if (skip)
+        {
             GameObject WeaknessManager = GameObject.Find("Weakness Scene");
             if (WeaknessManager == null) return;
             WeaknessManager.SetActive(false);
             PlayerData.instance.churchKeeperIntro = true;
+        }
+
+        if (tName.Equals("cog_09_destroyed"))
+        {
+            GameObject WeaknessManager = GameObject.Find("Weakness Cog Drop Scene");
+            if (WeaknessManager == null) return;
+            WeaknessManager.SetActive(false);
         }
     }
 }

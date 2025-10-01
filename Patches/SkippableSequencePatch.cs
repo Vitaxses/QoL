@@ -24,7 +24,7 @@ class InputHandlerPatch
     static bool Prefix(InputHandler __instance, ref SkipPromptMode newMode)
     {
         string sceneName = GameManager.instance.sceneName;
-        if (!QoLPlugin.NoCutscenes.Value || sceneName.Equals("End_Game_Completion")) return true;
+        if (!QoLPlugin.NoCutscenes.Value || sceneName.Equals("End_Game_Completion") || sceneName.Equals("PermaDeath")) return true;
         if (newMode == SkipPromptMode.NOT_SKIPPABLE && !sceneName.Equals("End_Credits") 
         && !sceneName.Equals("Opening_Sequence") && !sceneName.Equals("Bone_East_Umbrella")
         && !sceneName.Equals("Cinematic_Stag_travel") && !sceneName.Equals("Opening_Sequence_Act3")) return true;
