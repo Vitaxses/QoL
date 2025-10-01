@@ -6,13 +6,13 @@ Quality of life pack for Hollow Knight: Silksong
 
 - Cutscene skipping (Some cutscenes in Bellhart are not skippable as it softlocks)
 - Faster Pickups of Special items (Like Silk-Hearts and Abilities)
-- No Weakness in Moss Grotto (the Blackout)
+- No Weakness (the Blackouts)
 - No Boss Dialogue/Faster Boss Loads
 - See Percentage
 - Faster Levers
 - Faster Dialogue
 - Platforms for skips
-- Skips that have been patched out
+- Skips that have been patched out (Old Patch)
 
 The above can be toggled in the config (Hollow Knight Silksong\BepInEx\config\vitaxses.qol.cfg)
 
