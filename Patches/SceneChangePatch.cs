@@ -17,11 +17,11 @@ public class SceneChangePatch
     static void OnSceneLoaded(Scene scene, LoadSceneMode lsm)
     {
         if (HeroController.instance == null) return;
+        FastNPC(scene);
         Helper.Delay(() =>
         {
             SkipWeakness(scene);
             FastPickup(scene);
-            FastNPC(scene);
             OldPatch(scene);
             CreateSkipPlatforms(scene);
         }, 0.5f);
@@ -45,7 +45,7 @@ public class SceneChangePatch
     static void FastNPC(Scene to)
     {
         if (!QoLPlugin.FastNPC.Value) return;
-        if (to.name == "Bone_04") PlayerData.instance.SetBool(nameof(PlayerData.metMapper), true);
+        if (to.name == "Bone_04") PlayerData.instance.metMapper = true;
     }
 
     static void CreateSkipPlatforms(Scene to)
