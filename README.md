@@ -13,6 +13,8 @@ Quality of life pack for Hollow Knight: Silksong
 - Faster Dialogue
 - Platforms for skips
 - Skips that have been patched out (Old Patch)
+- No head bump when sprinting into a wall
+- No Hard lands
 
 The above can be toggled in the config (Hollow Knight Silksong\BepInEx\config\vitaxses.qol.cfg)
 
