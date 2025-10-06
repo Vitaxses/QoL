@@ -23,20 +23,20 @@ public partial class QoLPlugin : BaseUnityPlugin
     public static ConfigEntry<bool> SkipPlatforms { get; private set; }
     public static ConfigEntry<bool> FastNPC { get; private set; }
     public static ConfigEntry<bool> OldPatch { get; private set; }
+    public static ConfigEntry<bool> NoHardFalls { get; private set; }
+    public static ConfigEntry<bool> NoBump { get; private set; }
 
     private void Awake()
     {
-        harmony.PatchAll(typeof(UIManagerPatch));
-        harmony.PatchAll(typeof(InventoryPatch));
-        harmony.PatchAll(typeof(PlayerDataPatch));
-        harmony.PatchAll(typeof(SkippableSequencePatch));
-        harmony.PatchAll(typeof(InputHandlerPatch));
-        harmony.PatchAll(typeof(DialogueBoxPatch));
-        harmony.PatchAll(typeof(LeverPatch));
-        harmony.PatchAll(typeof(Lever_tk2dPatch));
-        harmony.PatchAll(typeof(PressurePlatePatch));
+        harmony.PatchAll();
         SceneChangePatch.Setup();
         Logger = base.Logger;
+        RegisterConfiguration();
+        Logger.LogInfo($"{ID} loaded!");
+    }
+
+    private void RegisterConfiguration()
+    {
         SkipWeakness = Config.Bind("Settings", "SkipWeakness", true);
         FastMenu = Config.Bind("Settings", "FastMenu", true);
         FasterLevers = Config.Bind("Settings", "FasterLevers", true);
@@ -47,6 +47,7 @@ public partial class QoLPlugin : BaseUnityPlugin
         SkipPlatforms = Config.Bind("Settings", "SkipPlatforms", true);
         FastNPC = Config.Bind("Settings", "FastNPC", true);
         OldPatch = Config.Bind("Settings", "OldPatch", true);
-        Logger.LogInfo($"{ID} loaded!");
+        NoHardFalls = Config.Bind("Settings", "NoHardFalls", false);
+        NoBump = Config.Bind("Settings", "NoBump", false);
     }
 }
