@@ -1,0 +1,9 @@
+{
+    "name": "Vitax_Quality_of_Life",
+    "version_number": "0.2.0",
+    "website_url": "https://github.com/vitaxses/qol",
+    "description": "Adds a lot of Quality of Life options",
+    "dependencies": [
+        "BepInEx-BepInExPack_Silksong-5.4.2303"
+    ]
+}
